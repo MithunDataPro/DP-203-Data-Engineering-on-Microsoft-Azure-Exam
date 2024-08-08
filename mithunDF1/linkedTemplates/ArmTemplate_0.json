@@ -1,0 +1,129 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "mithunDF1"
+		},
+		"Hotels_Data_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'Hotels_Data'"
+		},
+		"Hotels_Data_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://mithunstorage97.dfs.core.windows.net/"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/Hotels_Data')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('Hotels_Data_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('Hotels_Data_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflow1')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [],
+					"sinks": [],
+					"transformations": [],
+					"scriptLines": [
+						""
+					]
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/hotelsexcel')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Hotels_Data",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Excel",
+				"typeProperties": {
+					"sheetName": "Sheet1",
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Final Dataset.xlsx",
+						"fileSystem": "rawdata"
+					},
+					"firstRowAsHeader": true
+				},
+				"schema": [
+					{
+						"name": "Guest ID",
+						"type": "String"
+					},
+					{
+						"name": "Guest Name",
+						"type": "String"
+					},
+					{
+						"name": "Days Stayed",
+						"type": "String"
+					},
+					{
+						"name": "Hotel Name",
+						"type": "String"
+					},
+					{
+						"name": "Smoking Habit",
+						"type": "String"
+					},
+					{
+						"name": "Smoking Complaint",
+						"type": "String"
+					},
+					{
+						"name": "Pet Type",
+						"type": "String"
+					},
+					{
+						"name": "Pet Room Damage",
+						"type": "String"
+					},
+					{
+						"name": "Room Damage",
+						"type": "String"
+					},
+					{
+						"name": "Payment Timeliness",
+						"type": "String"
+					},
+					{
+						"name": "Guest Behavior Score",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Hotels_Data')]"
+			]
+		}
+	]
+}
