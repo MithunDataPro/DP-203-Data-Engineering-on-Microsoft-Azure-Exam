@@ -99,12 +99,12 @@
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "CREATE DATABASE myserverlessdb;\n\n",
+					"query": "-- Create a new database in the serverless SQL pool\nCREATE DATABASE myserverlessdb;\n\n-- Switch to the new database context\nUSE myserverlessdb;\n\n",
 					"metadata": {
 						"language": "sql"
 					},
 					"currentConnection": {
-						"databaseName": "mithun_db",
+						"databaseName": "myserverlessdb",
 						"poolName": "Built-in"
 					},
 					"resultLimit": 5000
