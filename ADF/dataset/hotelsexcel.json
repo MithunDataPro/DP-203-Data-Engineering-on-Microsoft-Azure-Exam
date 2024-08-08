@@ -1,0 +1,66 @@
+{
+	"name": "hotelsexcel",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Hotels_Data",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Sheet1",
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Final Dataset.xlsx",
+				"fileSystem": "rawdata"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "Guest ID",
+				"type": "String"
+			},
+			{
+				"name": "Guest Name",
+				"type": "String"
+			},
+			{
+				"name": "Days Stayed",
+				"type": "String"
+			},
+			{
+				"name": "Hotel Name",
+				"type": "String"
+			},
+			{
+				"name": "Smoking Habit",
+				"type": "String"
+			},
+			{
+				"name": "Smoking Complaint",
+				"type": "String"
+			},
+			{
+				"name": "Pet Type",
+				"type": "String"
+			},
+			{
+				"name": "Pet Room Damage",
+				"type": "String"
+			},
+			{
+				"name": "Room Damage",
+				"type": "String"
+			},
+			{
+				"name": "Payment Timeliness",
+				"type": "String"
+			},
+			{
+				"name": "Guest Behavior Score",
+				"type": "String"
+			}
+		]
+	}
+}
