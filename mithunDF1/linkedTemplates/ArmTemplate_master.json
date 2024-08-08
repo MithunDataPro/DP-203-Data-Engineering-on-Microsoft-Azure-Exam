@@ -15,6 +15,18 @@
 			"type": "string",
 			"defaultValue": "https://mithunVault97.vault.azure.net/"
 		},
+		"AzureSqlDatabase_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "mithun-synapse1.database.windows.net"
+		},
+		"AzureSqlDatabase_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "master"
+		},
+		"AzureSqlDatabase_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sqladminuser"
+		},
 		"Hotels_Data_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://mithunstorage97.dfs.core.windows.net/"
@@ -54,6 +66,15 @@
 					},
 					"Hotels_Data_properties_typeProperties_url": {
 						"value": "[parameters('Hotels_Data_properties_typeProperties_url')]"
+					},
+					"AzureSqlDatabase_properties_typeProperties_server": {
+						"value": "[parameters('AzureSqlDatabase_properties_typeProperties_server')]"
+					},
+					"AzureSqlDatabase_properties_typeProperties_database": {
+						"value": "[parameters('AzureSqlDatabase_properties_typeProperties_database')]"
+					},
+					"AzureSqlDatabase_properties_typeProperties_userName": {
+						"value": "[parameters('AzureSqlDatabase_properties_typeProperties_userName')]"
 					}
 				}
 			},
