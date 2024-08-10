@@ -1,0 +1,16 @@
+{
+	"name": "Movies_data",
+	"properties": {
+		"annotations": [],
+		"type": "HttpServer",
+		"typeProperties": {
+			"url": "https://github.com/MithunDataPro/DP-203-Data-Engineering-on-Microsoft-Azure-Exam/raw/master/movies-db-1.xlsx",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		},
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
