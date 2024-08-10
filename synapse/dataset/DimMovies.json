@@ -1,0 +1,42 @@
+{
+	"name": "DimMovies",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "mithun-synapse1-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "movies",
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Changed Values Movies.xlsx",
+				"fileSystem": "rawdata"
+			}
+		},
+		"schema": [
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			}
+		]
+	}
+}

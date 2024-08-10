@@ -1,0 +1,42 @@
+{
+	"name": "movies_data",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "mithun-synapse1-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "movies",
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "movies-db-1.xlsx",
+				"fileSystem": "rawdata"
+			}
+		},
+		"schema": [
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			}
+		]
+	}
+}
