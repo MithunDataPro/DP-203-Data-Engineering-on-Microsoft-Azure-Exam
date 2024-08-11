@@ -3,7 +3,10 @@
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "mithun-synapse1-WorkspaceDefaultSqlServer",
-			"type": "LinkedServiceReference"
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"DBName": "mithun_dedicated"
+			}
 		},
 		"annotations": [],
 		"type": "AzureSqlDWTable",
