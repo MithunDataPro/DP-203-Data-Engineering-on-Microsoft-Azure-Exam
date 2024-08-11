@@ -33,16 +33,7 @@
 					"name": "CreateCustomerHash"
 				},
 				{
-					"name": "Exists"
-				},
-				{
-					"name": "LookupCustomerID"
-				},
-				{
-					"name": "SetDates"
-				},
-				{
-					"name": "AllowUpserts"
+					"name": "DimCustomerMike"
 				}
 			],
 			"scriptLines": [
@@ -84,17 +75,10 @@
 				"     format: 'table',",
 				"     staged: true) ~> DimCustomer",
 				"SourceDB derive(HashKey = sha2(256, iifNull(Title,'') +FirstName +iifNull(MiddleName,'') +LastName +iifNull(Suffix,'') +iifNull(CompanyName,'') +iifNull(SalesPerson,'') +iifNull(EmailAddress,'') +iifNull(Phone,''))) ~> CreateCustomerHash",
-				"CreateCustomerHash, DimCustomer exists(CreateCustomerHash@HashKey == Enter DimCustomer@HashKey,",
-				"     negate:true,",
-				"     broadcast: 'auto')~> Exists",
-				"Exists, DimCustomer lookup(SourceDB@CustomerID == Enter DimCustomer@CustomerID,",
-				"     multiple: false,",
-				"     pickup: 'any',",
-				"     broadcast: 'auto')~> LookupCustomerID",
-				"LookupCustomerID derive(InsertedDate = iif(isNull(InsertedDate), currentTimestamp(), InsertedDate),",
-				"          ModifiedDate = currentTimestamp()) ~> SetDates",
-				"SetDates alterRow(upsertIf(true())) ~> AllowUpserts",
-				"AllowUpserts sink(allowSchemaDrift: true,",
+				"CreateCustomerHash, DimCustomer exists(CreateCustomerHash@HashKey == CreateCustomerHash@HashKey,",
+				"     negate:false,",
+				"     broadcast: 'auto')~> DimCustomerMike",
+				" sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
 				"          CustomerID as integer,",
@@ -112,30 +96,14 @@
 				"          HashKey as string",
 				"     ),",
 				"     deletable:false,",
-				"     insertable:false,",
+				"     insertable:true,",
 				"     updateable:false,",
-				"     upsertable:true,",
-				"     keys:['CustomerID'],",
+				"     upsertable:false,",
 				"     format: 'table',",
-				"     staged: false,",
+				"     staged: true,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError',",
-				"     mapColumn(",
-				"          CustomerID = SourceDB@CustomerID,",
-				"          Title = SourceDB@Title,",
-				"          FirstName = SourceDB@FirstName,",
-				"          MiddleName = SourceDB@MiddleName,",
-				"          LastName = SourceDB@LastName,",
-				"          Suffix = SourceDB@Suffix,",
-				"          CompanyName = SourceDB@CompanyName,",
-				"          SalesPerson = SourceDB@SalesPerson,",
-				"          EmailAddress = SourceDB@EmailAddress,",
-				"          Phone = SourceDB@Phone,",
-				"          InsertedDate,",
-				"          ModifiedDate,",
-				"          HashKey = CreateCustomerHash@HashKey",
-				"     )) ~> Sink"
+				"     errorHandlingOption: 'stopOnFirstError') ~> Sink"
 			]
 		}
 	}
